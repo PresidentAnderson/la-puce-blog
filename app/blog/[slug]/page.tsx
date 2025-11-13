@@ -10,8 +10,9 @@ async function getPost(slug: string) {
   return post
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getPost(slug)
 
   if (!post) {
     return {
@@ -35,9 +36,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function BlogPostPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const post = await getPost(params.slug)
+  const { slug } = await params
+  const post = await getPost(slug)
 
   if (!post || !post.published) {
     notFound()
