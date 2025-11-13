@@ -335,6 +335,182 @@ export default async function HomePage() {
         </div>
       </section>
 
+      {/* Real Scenarios Section - NEW */}
+      <section className="py-16 bg-gradient-to-br from-slate-800 to-slate-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Trouvez une situation similaire à la vôtre
+            </h2>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              6 scénarios anonymes de lanceurs d'alerte du secteur privé avec les étapes recommandées
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+            {/* Scenario Card 1 */}
+            <div className="bg-slate-700 rounded-xl p-6 border border-slate-600 hover:border-teal-500 transition hover:shadow-2xl">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">Fraude comptable</h3>
+                  <p className="text-xs text-teal-300 font-medium">Employé du privé</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-300 mb-4">
+                Falsification des états financiers pour masquer des pertes importantes
+              </p>
+              <Link href="/scenarios#fraude-comptable" className="text-teal-400 hover:text-teal-300 font-semibold text-sm inline-flex items-center gap-1">
+                Voir les étapes recommandées
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Scenario Card 2 */}
+            <div className="bg-slate-700 rounded-xl p-6 border border-slate-600 hover:border-teal-500 transition hover:shadow-2xl">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">Harcèlement systémique</h3>
+                  <p className="text-xs text-teal-300 font-medium">Cadre moyen</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-300 mb-4">
+                Système organisé pour pousser certains employés à démissionner
+              </p>
+              <Link href="/scenarios#harcelement-moral" className="text-teal-400 hover:text-teal-300 font-semibold text-sm inline-flex items-center gap-1">
+                Voir les étapes recommandées
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Scenario Card 3 */}
+            <div className="bg-slate-700 rounded-xl p-6 border border-slate-600 hover:border-teal-500 transition hover:shadow-2xl">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-yellow-600 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">Pratiques dangereuses</h3>
+                  <p className="text-xs text-teal-300 font-medium">Sous-traitant</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-300 mb-4">
+                Normes de sécurité ignorées, rapports de quasi-accidents cachés
+              </p>
+              <Link href="/scenarios#pratiques-dangereuses" className="text-teal-400 hover:text-teal-300 font-semibold text-sm inline-flex items-center gap-1">
+                Voir les étapes recommandées
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Scenario Card 4 */}
+            <div className="bg-slate-700 rounded-xl p-6 border border-slate-600 hover:border-teal-500 transition hover:shadow-2xl">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">Corruption</h3>
+                  <p className="text-xs text-teal-300 font-medium">Consultant</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-300 mb-4">
+                Pots-de-vin pour attribution de marchés publics
+              </p>
+              <Link href="/scenarios#corruption-contrats" className="text-teal-400 hover:text-teal-300 font-semibold text-sm inline-flex items-center gap-1">
+                Voir les étapes recommandées
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Scenario Card 5 */}
+            <div className="bg-slate-700 rounded-xl p-6 border border-slate-600 hover:border-teal-500 transition hover:shadow-2xl">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-pink-600 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">Discrimination</h3>
+                  <p className="text-xs text-teal-300 font-medium">RH junior</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-300 mb-4">
+                Élimination systématique de candidatures selon l'origine
+              </p>
+              <Link href="/scenarios#discrimination-systeme" className="text-teal-400 hover:text-teal-300 font-semibold text-sm inline-flex items-center gap-1">
+                Voir les étapes recommandées
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+
+            {/* Scenario Card 6 */}
+            <div className="bg-slate-700 rounded-xl p-6 border border-slate-600 hover:border-teal-500 transition hover:shadow-2xl">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
+                    <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
+                    <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-1">Données clients</h3>
+                  <p className="text-xs text-teal-300 font-medium">Data analyst</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-300 mb-4">
+                Vente illégale de données personnelles sans consentement
+              </p>
+              <Link href="/scenarios#manipulation-donnees" className="text-teal-400 hover:text-teal-300 font-semibold text-sm inline-flex items-center gap-1">
+                Voir les étapes recommandées
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+
+          {/* View All Scenarios CTA */}
+          <div className="text-center">
+            <Link
+              href="/scenarios"
+              className="inline-flex items-center gap-2 bg-teal-600 text-white px-8 py-4 rounded-lg hover:bg-teal-700 transition font-bold text-lg shadow-xl"
+            >
+              Voir tous les scénarios détaillés
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Resource Categories */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

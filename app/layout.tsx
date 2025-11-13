@@ -43,11 +43,14 @@ export default function RootLayout({
                 <a href="/commencer" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
                   Comment commencer
                 </a>
+                <a href="/scenarios" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
+                  Scénarios
+                </a>
                 <a href="/guides" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
-                  Guides & Modèles
+                  Guides
                 </a>
                 <a href="/securite" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
-                  Sécurité & Droits
+                  Sécurité
                 </a>
                 <a href="/blog" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
                   Analyses
