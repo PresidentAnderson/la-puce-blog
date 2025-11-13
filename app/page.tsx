@@ -1,16 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 
-async function getFeaturedPosts() {
-  const posts = await prisma.post.findMany({
-    where: { published: true, featured: true },
-    include: { author: true, category: true },
-    orderBy: { createdAt: 'desc' },
-    take: 3,
-  })
-  return posts
-}
-
 async function getRecentPosts() {
   const posts = await prisma.post.findMany({
     where: { published: true },
@@ -22,40 +12,334 @@ async function getRecentPosts() {
 }
 
 export default async function HomePage() {
-  const featuredPosts = await getFeaturedPosts()
   const recentPosts = await getRecentPosts()
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold mb-4">
-            Bienvenue sur La Puce à L'oreille
-          </h1>
-          <p className="text-xl mb-8 opacity-90">
-            Découvrez nos articles, analyses et réflexions
-          </p>
-          <Link
-            href="/blog"
-            className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-block"
-          >
-            Explorer les articles
-          </Link>
+      {/* Hero Section - Mission Focused */}
+      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 text-white py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="mb-6 flex justify-center items-center gap-2 text-sm text-teal-300">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              <span className="font-semibold">Plateforme indépendante — Soutien confidentiel</span>
+            </div>
+
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+              Le soutien confidentiel pour ceux qui veulent faire entendre la vérité
+            </h1>
+
+            <p className="text-xl md:text-2xl mb-10 text-slate-200 leading-relaxed">
+              Nous aidons toute personne à préparer, structurer et raconter son histoire — en toute sécurité.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/commencer"
+                className="bg-teal-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-teal-600 transition inline-flex items-center justify-center gap-2 shadow-lg"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                Commencer anonymement
+              </Link>
+              <Link
+                href="/guides"
+                className="bg-white/10 backdrop-blur text-white border-2 border-white/30 px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition inline-flex items-center justify-center gap-2"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Comment préparer votre histoire
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Featured Posts */}
-      {featuredPosts.length > 0 && (
-        <section className="py-16 bg-gray-50">
+      {/* Safety & Confidentiality Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Sécurité & Confidentialité
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Votre protection est notre priorité absolue
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-teal-50 rounded-xl p-6 border-2 border-teal-100">
+              <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">100% Anonyme</h3>
+              <p className="text-slate-700">
+                Aucune donnée personnelle requise pour commencer. Pas d'inscription, pas de traçage.
+              </p>
+            </div>
+
+            <div className="bg-teal-50 rounded-xl p-6 border-2 border-teal-100">
+              <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Hébergement Sécurisé</h3>
+              <p className="text-slate-700">
+                Infrastructure cryptée et conforme aux meilleures pratiques de sécurité numérique.
+              </p>
+            </div>
+
+            <div className="bg-teal-50 rounded-xl p-6 border-2 border-teal-100">
+              <div className="w-12 h-12 bg-teal-500 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">Conseils Juridiques</h3>
+              <p className="text-slate-700">
+                Guides basés sur les meilleures pratiques légales et les droits des lanceurs d'alerte.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-16 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Comment ça fonctionne
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Un accompagnement étape par étape pour révéler la vérité en toute sécurité
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-5 gap-6">
+            {[
+              {
+                number: '1',
+                title: 'Comprendre vos droits',
+                description: 'Articles vulgarisés et ressources juridiques adaptées à votre situation',
+                icon: (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                ),
+              },
+              {
+                number: '2',
+                title: 'Structurer votre histoire',
+                description: 'Guides narratifs, templates et checklists pour organiser votre témoignage',
+                icon: (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                ),
+              },
+              {
+                number: '3',
+                title: 'Organiser vos preuves',
+                description: 'Conseils de documentation, segmentation et gestion de métadonnées',
+                icon: (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                ),
+              },
+              {
+                number: '4',
+                title: 'Publier en sécurité',
+                description: 'Scénarios: médias, autorités, organismes internationaux',
+                icon: (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                ),
+              },
+              {
+                number: '5',
+                title: 'Protection personnelle',
+                description: 'Sécurité physique, digitale et accompagnement psychologique',
+                icon: (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                ),
+              },
+            ].map((step) => (
+              <div key={step.number} className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 relative">
+                <div className="absolute -top-4 -left-4 w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center font-bold text-sm">
+                  {step.number}
+                </div>
+                <div className="w-12 h-12 bg-slate-100 rounded-lg flex items-center justify-center mb-4 mt-2">
+                  <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {step.icon}
+                  </svg>
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2">{step.title}</h3>
+                <p className="text-sm text-slate-600">{step.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Resource Categories */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+              Ressources & Accompagnement
+            </h2>
+            <p className="text-xl text-slate-600">
+              Tout ce dont vous avez besoin pour agir en toute sécurité
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-slate-50 rounded-xl p-8 border-2 border-slate-200 hover:border-teal-400 transition">
+              <div className="w-14 h-14 bg-teal-500 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Ressources essentielles</h3>
+              <ul className="space-y-3 text-slate-700 mb-6">
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Templates narratifs
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Guides de sécurité numérique
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Checklists de documentation
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Fiches pratiques juridiques
+                </li>
+              </ul>
+              <Link href="/ressources" className="text-teal-600 font-semibold hover:text-teal-700 inline-flex items-center gap-2">
+                Accéder aux ressources
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+
+            <div className="bg-slate-50 rounded-xl p-8 border-2 border-slate-200 hover:border-teal-400 transition">
+              <div className="w-14 h-14 bg-teal-500 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Analyses & Réflexions</h3>
+              <ul className="space-y-3 text-slate-700 mb-6">
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Études de cas anonymisées
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Analyse de scandales privés
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Méthodologies d'enquête
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Éthique du témoignage
+                </li>
+              </ul>
+              <Link href="/blog" className="text-teal-600 font-semibold hover:text-teal-700 inline-flex items-center gap-2">
+                Lire les analyses
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+
+            <div className="bg-slate-50 rounded-xl p-8 border-2 border-slate-200 hover:border-teal-400 transition">
+              <div className="w-14 h-14 bg-teal-500 rounded-xl flex items-center justify-center mb-6">
+                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-4">Accompagnement</h3>
+              <ul className="space-y-3 text-slate-700 mb-6">
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Construire son dossier
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Protéger ses communications
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Éviter les représailles
+                </li>
+                <li className="flex items-start gap-2">
+                  <svg className="w-5 h-5 text-teal-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Définir la bonne stratégie
+                </li>
+              </ul>
+              <Link href="/accompagnement" className="text-teal-600 font-semibold hover:text-teal-700 inline-flex items-center gap-2">
+                Obtenir de l'aide
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Recent Posts - Reframed */}
+      {recentPosts.length > 0 && (
+        <section className="py-16 bg-slate-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold mb-8">Articles en vedette</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              {featuredPosts.map((post) => (
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                Publications récentes
+              </h2>
+              <p className="text-xl text-slate-600">
+                Analyses, guides et réflexions sur la protection des lanceurs d'alerte
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {recentPosts.slice(0, 3).map((post) => (
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition"
+                  className="bg-white border-2 border-slate-200 rounded-xl overflow-hidden hover:border-teal-400 hover:shadow-lg transition"
                 >
                   {post.coverImage && (
                     <img
@@ -66,13 +350,13 @@ export default async function HomePage() {
                   )}
                   <div className="p-6">
                     {post.category && (
-                      <span className="text-sm text-blue-600 font-semibold">
+                      <span className="text-sm text-teal-600 font-semibold">
                         {post.category.name}
                       </span>
                     )}
-                    <h3 className="text-xl font-bold mt-2 mb-2">{post.title}</h3>
-                    <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                    <div className="flex items-center text-sm text-gray-500">
+                    <h3 className="text-xl font-bold mt-2 mb-2 text-slate-900">{post.title}</h3>
+                    <p className="text-slate-600 mb-4">{post.excerpt}</p>
+                    <div className="flex items-center text-sm text-slate-500">
                       <span>{post.author.name}</span>
                       <span className="mx-2">•</span>
                       <span>
@@ -82,78 +366,80 @@ export default async function HomePage() {
                   </div>
                 </Link>
               ))}
+            </div>
+            <div className="text-center mt-8">
+              <Link
+                href="/blog"
+                className="text-teal-600 font-semibold hover:text-teal-700 inline-flex items-center gap-2"
+              >
+                Voir toutes les publications
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
           </div>
         </section>
       )}
 
-      {/* Recent Posts */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold mb-8">Articles récents</h2>
-          {recentPosts.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {recentPosts.map((post) => (
-                <Link
-                  key={post.id}
-                  href={`/blog/${post.slug}`}
-                  className="bg-white border rounded-lg overflow-hidden hover:shadow-lg transition"
-                >
-                  {post.coverImage && (
-                    <img
-                      src={post.coverImage}
-                      alt={post.title}
-                      className="w-full h-48 object-cover"
-                    />
-                  )}
-                  <div className="p-6">
-                    {post.category && (
-                      <span className="text-sm text-blue-600 font-semibold">
-                        {post.category.name}
-                      </span>
-                    )}
-                    <h3 className="text-xl font-bold mt-2 mb-2">{post.title}</h3>
-                    <p className="text-gray-600 mb-4">{post.excerpt}</p>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <span>{post.author.name}</span>
-                      <span className="mx-2">•</span>
-                      <span>
-                        {new Date(post.createdAt).toLocaleDateString('fr-FR')}
-                      </span>
-                    </div>
-                  </div>
-                </Link>
+      {/* Mission Statement */}
+      <section className="py-16 bg-slate-900 text-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Notre Mission
+            </h2>
+            <p className="text-xl text-slate-300 leading-relaxed">
+              Un espace indépendant dédié à soutenir toute personne souhaitant partager une information d'intérêt public dans le secteur privé. Nous ne collectons aucune donnée personnelle et ne représentons aucun employeur, organisme ou média.
+            </p>
+          </div>
+
+          <div className="mt-12 pt-12 border-t border-slate-700">
+            <h3 className="text-2xl font-bold mb-6 text-center">Qui nous aidons</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              {[
+                'Employés du privé',
+                'Consultants',
+                'Travailleurs temporaires',
+                'Partenaires commerciaux',
+                'Sous-traitants',
+                'Témoins d\'injustice grave',
+              ].map((group) => (
+                <div key={group} className="flex items-center gap-3 bg-slate-800 rounded-lg p-4">
+                  <svg className="w-5 h-5 text-teal-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-slate-200">{group}</span>
+                </div>
               ))}
             </div>
-          ) : (
-            <div className="text-center py-12">
-              <p className="text-gray-600 mb-4">
-                Aucun article disponible pour le moment.
-              </p>
-              <Link
-                href="/admin"
-                className="text-blue-600 hover:underline font-semibold"
-              >
-                Créer votre premier article →
-              </Link>
-            </div>
-          )}
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-blue-600 text-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Restez informé</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Contactez-nous pour toute question ou suggestion
+      <section className="bg-teal-600 text-white py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Prêt à faire entendre votre voix ?
+          </h2>
+          <p className="text-xl mb-8 text-teal-100">
+            Commencez par comprendre vos droits et préparer votre témoignage en toute sécurité
           </p>
-          <Link
-            href="/contact"
-            className="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-block"
-          >
-            Nous contacter
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/commencer"
+              className="bg-white text-teal-600 px-8 py-4 rounded-lg font-semibold hover:bg-slate-50 transition inline-block"
+            >
+              Commencer maintenant
+            </Link>
+            <Link
+              href="/contact"
+              className="bg-teal-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-teal-800 transition inline-block border-2 border-white/20"
+            >
+              Poser une question anonyme
+            </Link>
+          </div>
         </div>
       </section>
     </div>
