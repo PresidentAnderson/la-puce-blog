@@ -10,6 +10,42 @@ export interface ChangelogEntry {
 
 export const changelog: ChangelogEntry[] = [
   {
+    version: '0.0.11',
+    date: '2025-11-13',
+    type: 'minor',
+    changes: [
+      {
+        category: 'feature',
+        items: [
+          'Created /commencer page with complete 5-step getting started guide',
+          'Created /guides page with templates, checklists, and security guides',
+          'Created /securite page with comprehensive legal rights and digital security information',
+          'Added navigation structure for whistleblower support journey',
+        ],
+      },
+      {
+        category: 'improvement',
+        items: [
+          'Completed core navigation pages (Comment commencer, Guides & Modèles, Sécurité & Droits)',
+          'Added detailed legal framework (Loi Sapin II, Directive Européenne)',
+          'Implemented 3-channel reporting system explanation (internal, external, public)',
+          'Created downloadable templates for testimony, timeline, evidence log, and communications',
+          '6 practical checklists for whistleblower journey',
+          'Digital security guides for communications, storage, anonymity, and retaliation detection',
+        ],
+      },
+      {
+        category: 'design',
+        items: [
+          'Consistent teal/slate color scheme across all new pages',
+          'Mission-focused hero sections with trust signals',
+          'Anchor links for easy navigation within long pages',
+          'Trust-building visual elements (shields, locks, checkmarks)',
+        ],
+      },
+    ],
+  },
+  {
     version: '0.0.10',
     date: '2025-11-13',
     type: 'minor',
