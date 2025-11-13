@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import ChangelogModal from '@/components/ChangelogModal'
 import { getLatestVersion } from '@/lib/changelog'
+import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
   title: 'La Puce à L\'oreille - Soutien aux Lanceurs d\'Alerte',
@@ -105,6 +106,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   )
