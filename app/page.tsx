@@ -35,27 +35,45 @@ export default async function HomePage() {
               Nous aidons toute personne à préparer, structurer et raconter son histoire — en toute sécurité.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              {/* PRIMARY CTA - Maximum emphasis */}
               <Link
                 href="/commencer"
-                className="bg-teal-500 text-white px-8 py-4 rounded-lg font-semibold hover:bg-teal-600 transition inline-flex items-center justify-center gap-2 shadow-lg"
+                className="bg-teal-500 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-teal-600 hover:scale-105 transition-all inline-flex items-center justify-center gap-3 shadow-2xl ring-4 ring-teal-300 ring-opacity-50"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
                 Commencer anonymement
               </Link>
+
+              {/* SECONDARY CTA - Subdued */}
               <Link
-                href="/guides"
-                className="bg-white/10 backdrop-blur text-white border-2 border-white/30 px-8 py-4 rounded-lg font-semibold hover:bg-white/20 transition inline-flex items-center justify-center gap-2"
+                href="/contact"
+                className="bg-transparent text-white border-2 border-white/40 px-6 py-3 rounded-lg font-medium hover:bg-white/10 hover:border-white/60 transition inline-flex items-center justify-center gap-2"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                Comment préparer votre histoire
+                Poser une question anonyme
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Emotional Reassurance Section - NEW */}
+      <section className="py-12 bg-gradient-to-r from-teal-700 to-teal-800">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Vous n'êtes pas seul
+          </h2>
+          <p className="text-xl text-teal-100 mb-2 leading-relaxed">
+            Chaque histoire mérite d'être entendue.
+          </p>
+          <p className="text-lg text-teal-200">
+            Vous pouvez avancer à votre rythme, sans pression et sans jugement.
+          </p>
         </div>
       </section>
 
@@ -107,6 +125,140 @@ export default async function HomePage() {
                 Guides basés sur les meilleures pratiques légales et les droits des lanceurs d'alerte.
               </p>
             </div>
+          </div>
+
+          {/* Link to detailed protection page */}
+          <div className="text-center mt-10">
+            <Link
+              href="/protection"
+              className="inline-flex items-center gap-2 text-teal-700 hover:text-teal-800 font-semibold hover:underline"
+            >
+              En savoir plus sur notre infrastructure de sécurité
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Badges - Pourquoi nous faire confiance - NEW */}
+      <section className="py-16 bg-slate-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Pourquoi nous faire confiance ?
+            </h2>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              Transparence totale sur nos engagements et nos pratiques
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* Badge 1: Open Source */}
+            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <svg className="w-10 h-10 text-teal-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-2">Open Source</h3>
+                  <p className="text-sm text-slate-300">Code entièrement public sur GitHub pour audit et transparence totale</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Badge 2: Zero Logging */}
+            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <svg className="w-10 h-10 text-teal-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M13.477 14.89A6 6 0 015.11 6.524l8.367 8.368zm1.414-1.414L6.524 5.11a6 6 0 018.367 8.367zM18 10a8 8 0 11-16 0 8 8 0 0116 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-2">Zéro Logging</h3>
+                  <p className="text-sm text-slate-300">Aucun journal d'activité, aucune donnée personnelle collectée</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Badge 3: Independent */}
+            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <svg className="w-10 h-10 text-teal-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-2">Indépendance</h3>
+                  <p className="text-sm text-slate-300">Aucune affiliation gouvernementale, corporative ou politique</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Badge 4: Encrypted Infrastructure */}
+            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <svg className="w-10 h-10 text-teal-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-2">Infrastructure Chiffrée</h3>
+                  <p className="text-sm text-slate-300">HTTPS/TLS 1.3, SOC 2, GDPR - hébergement sécurisé</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Badge 5: No Tracking */}
+            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <svg className="w-10 h-10 text-teal-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                    <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-2">Aucun Tracking</h3>
+                  <p className="text-sm text-slate-300">Pas de cookies, pas d'IP, analytics respectueux de la vie privée</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Badge 6: Audits */}
+            <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 hover:border-teal-500 transition">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <svg className="w-10 h-10 text-teal-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                    <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold mb-2">Audits Publics</h3>
+                  <p className="text-sm text-slate-300">Rapport de transparence : 0 demandes, 0 données partagées</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA to detailed page */}
+          <div className="text-center mt-10">
+            <Link
+              href="/protection"
+              className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition font-semibold"
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              Comment nous vous protégeons (détails techniques)
+            </Link>
           </div>
         </div>
       </section>
