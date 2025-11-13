@@ -3,6 +3,7 @@ import './globals.css'
 import ChangelogModal from '@/components/ChangelogModal'
 import { getLatestVersion } from '@/lib/changelog'
 import { Analytics } from '@vercel/analytics/next'
+import EmergencyButton from '@/components/EmergencyButton'
 
 export const metadata: Metadata = {
   title: 'La Puce à L\'oreille - Soutien aux Lanceurs d\'Alerte',
@@ -106,6 +107,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        <EmergencyButton />
         <Analytics />
       </body>
     </html>
