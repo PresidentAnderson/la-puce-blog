@@ -41,10 +41,13 @@ export default function RootLayout({
                   Accueil
                 </a>
                 <a href="/commencer" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
-                  Comment commencer
+                  Commencer
                 </a>
                 <a href="/scenarios" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
                   Scénarios
+                </a>
+                <a href="/menaces" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
+                  Menaces
                 </a>
                 <a href="/guides" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
                   Guides
@@ -52,11 +55,8 @@ export default function RootLayout({
                 <a href="/securite" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
                   Sécurité
                 </a>
-                <a href="/blog" className="px-4 py-2 rounded-md text-slate-700 hover:bg-slate-100 hover:text-teal-600 transition font-medium">
-                  Analyses
-                </a>
                 <a href="/contact" className="px-4 py-2 rounded-md bg-teal-600 text-white hover:bg-teal-700 transition font-medium">
-                  Contact Anonyme
+                  Contact
                 </a>
               </div>
               <div className="md:hidden">

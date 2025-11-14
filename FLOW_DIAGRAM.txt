@@ -1,0 +1,209 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    INTERACTIVE ONBOARDING FLOW DIAGRAM                        ║
+║                           /commencer Page Flow                                ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+                              ┌─────────────────┐
+                              │  User visits    │
+                              │  /commencer     │
+                              └────────┬────────┘
+                                       │
+                                       ▼
+            ╔═══════════════════════════════════════════════════════╗
+            ║         SITUATION SELECTION SCREEN                    ║
+            ║  "Quelle situation décrit le mieux votre cas ?"       ║
+            ╚═══════════════════════════════════════════════════════╝
+                                       │
+              ┌────────────────┬───────┴────────┬────────────────┐
+              │                │                │                │
+              ▼                ▼                ▼                ▼
+      ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ ┌───────────────┐
+      │   WITNESSED   │ │  RETALIATION  │ │  DISCLOSURE   │ │   QUESTIONS   │
+      │   (Blue)      │ │    (Red)      │ │  (Purple)     │ │   (Teal)      │
+      └───────┬───────┘ └───────┬───────┘ └───────┬───────┘ └───────┬───────┘
+              │                 │                 │                 │
+              └────────────────┬┴─────────────────┼─────────────────┘
+                               │                  │
+                               ▼                  │
+            ╔═══════════════════════════════════════════════════════╗
+            ║              GUIDED PATH SCREEN                       ║
+            ║  • Progress bar (Étape X sur 4)                       ║
+            ║  • Current step content                               ║
+            ║  • Navigation (← Précédent | Suivant →)               ║
+            ╚═══════════════════════════════════════════════════════╝
+                               │
+                ┌──────────────┼──────────────┐
+                │              │              │
+                ▼              ▼              ▼
+         ┌──────────┐   ┌──────────┐   ┌──────────┐
+         │  Step 1  │   │  Step 2  │   │  Step 3  │ ... → Step 4
+         └──────────┘   └──────────┘   └──────────┘
+                               │
+                               ▼
+            ╔═══════════════════════════════════════════════════════╗
+            ║              ALWAYS VISIBLE SECTIONS                  ║
+            ║  1. Vos droits et protections (4 rights)              ║
+            ║  2. Risques à connaître (4 risks)                     ║
+            ║  3. Ressources (4 links)                              ║
+            ║  4. Help CTAs (Guides | Contact | Restart)            ║
+            ╚═══════════════════════════════════════════════════════╝
+                               │
+                    ┌──────────┴──────────┐
+                    │                     │
+                    ▼                     ▼
+            ┌──────────────┐      ┌──────────────┐
+            │ Click Links  │      │   Restart    │
+            │ (External)   │      │ (Go to Start)│
+            └──────────────┘      └──────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                          DETAILED PATH STRUCTURES
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATH 1: WITNESSED (Blue)                                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Title: "J'ai été témoin d'une faute"                                       │
+│                                                                             │
+│ Steps:                                                                      │
+│   1. Évaluez la gravité                                                    │
+│   2. Collectez des preuves                                                 │
+│   3. Consultez vos droits                                                  │
+│   4. Choisissez votre canal                                                │
+│                                                                             │
+│ Rights:                                                                     │
+│   ✓ Protection contre le licenciement et les représailles                  │
+│   ✓ Anonymat préservé si vous le souhaitez                                │
+│   ✓ Irresponsabilité pénale pour divulgation d'informations protégées     │
+│   ✓ Inversion de la charge de la preuve en cas de litige                  │
+│                                                                             │
+│ Risks:                                                                      │
+│   ⚠ Possibles tensions avec vos collègues ou hiérarchie                   │
+│   ⚠ Processus potentiellement long et stressant                           │
+│   ⚠ Risque de représailles malgré les protections                         │
+│   ⚠ Impact sur votre carrière dans certains secteurs                      │
+│                                                                             │
+│ Resources:                                                                  │
+│   → Guide de documentation des preuves                                      │
+│   → Vos droits en tant que témoin                                          │
+│   → Modèles de signalement                                                 │
+│   → Scénarios similaires                                                   │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATH 2: RETALIATION (Red)                                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Title: "J'ai subi des représailles"                                        │
+│                                                                             │
+│ Steps:                                                                      │
+│   1. Documentez tout immédiatement                                         │
+│   2. Consultez un avocat d'urgence                                         │
+│   3. Saisissez les autorités                                               │
+│   4. Protégez-vous                                                         │
+│                                                                             │
+│ Rights:                                                                     │
+│   ✓ Nullité de tout licenciement lié à votre alerte                       │
+│   ✓ Inversion de la charge de la preuve (employeur doit prouver bonne foi)│
+│   ✓ Dommages et intérêts en cas de représailles avérées                   │
+│   ✓ Réintégration possible dans votre poste                               │
+│                                                                             │
+│ Risks:                                                                      │
+│   ⚠ Procédure judiciaire longue et éprouvante                             │
+│   ⚠ Stress et impact psychologique important                               │
+│   ⚠ Coûts juridiques (parfois pris en charge par assurances)              │
+│   ⚠ Difficulté à retrouver un emploi pendant la procédure                 │
+│                                                                             │
+│ Resources:                                                                  │
+│   → Modèle de plainte pour représailles                                    │
+│   → Contacts juridiques d'urgence                                          │
+│   → Vos recours immédiats                                                  │
+│   → Témoignages de lanceurs d'alerte                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATH 3: DISCLOSURE (Purple)                                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Title: "Je veux divulguer une information sensible"                        │
+│                                                                             │
+│ Steps:                                                                      │
+│   1. Vérifiez la légitimité                                                │
+│   2. Préparez votre dossier                                                │
+│   3. Sécurisez vos communications                                          │
+│   4. Choisissez votre stratégie                                            │
+│                                                                             │
+│ Rights:                                                                     │
+│   ✓ Protection totale si respect du parcours graduel (interne>externe>pub) │
+│   ✓ Secret des sources si divulgation à la presse                         │
+│   ✓ Immunité pénale pour divulgation d'informations couvertes            │
+│   ✓ Protection étendue aux facilitateurs (avocats, journalistes)          │
+│                                                                             │
+│ Risks:                                                                      │
+│   ⚠ Exposition personnelle et professionnelle maximale                     │
+│   ⚠ Poursuites possibles si non-respect du cadre légal                    │
+│   ⚠ Impact durable sur votre réputation et carrière                       │
+│   ⚠ Stress intense et besoin de soutien psychologique                     │
+│                                                                             │
+│ Resources:                                                                  │
+│   → Guide de sécurité numérique                                            │
+│   → Checklist avant divulgation                                            │
+│   → Canaux de signalement sécurisés                                        │
+│   → Contacts médias et ONG                                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PATH 4: QUESTIONS (Teal)                                                    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Title: "Je ne sais pas encore — j'ai des questions"                        │
+│                                                                             │
+│ Steps:                                                                      │
+│   1. Évaluez votre situation                                               │
+│   2. Informez-vous sur vos droits                                          │
+│   3. Consultez les ressources                                              │
+│   4. Parlez-en (de façon confidentielle)                                   │
+│                                                                             │
+│ Rights:                                                                     │
+│   ✓ Droit de consulter un avocat en toute confidentialité                 │
+│   ✓ Droit à l'information sur vos protections légales                     │
+│   ✓ Pas d'obligation de signaler si vous ne vous sentez pas prêt          │
+│   ✓ Droit de poser des questions de façon anonyme                         │
+│                                                                             │
+│ Risks:                                                                      │
+│   ⚠ Inaction prolongée peut aggraver la situation                          │
+│   ⚠ Difficulté de collecter des preuves après coup                        │
+│   ⚠ Stress de l'incertitude                                               │
+│   ⚠ Risque de manquer le moment opportun pour agir                        │
+│                                                                             │
+│ Resources:                                                                  │
+│   → Scénarios types et exemples                                            │
+│   → FAQ - Questions fréquentes                                             │
+│   → Comprendre vos droits                                                  │
+│   → Guides pratiques                                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                         STATE MANAGEMENT DIAGRAM
+
+    User State:
+    ┌─────────────────────────────────────────────────────────────┐
+    │  currentSituation: null | 'witnessed' | 'retaliation' |     │
+    │                         'disclosure' | 'questions'          │
+    │  currentStep: 0 | 1 | 2 | 3                                 │
+    └─────────────────────────────────────────────────────────────┘
+                                   │
+                                   ├─ Session-based (React useState)
+                                   ├─ Client-side ONLY
+                                   ├─ No server tracking
+                                   ├─ No localStorage
+                                   └─ Clears on page close
+
+    Privacy Guarantee:
+    ┌─────────────────────────────────────────────────────────────┐
+    │  ✓ No data sent to server                                   │
+    │  ✓ No cookies or tracking                                   │
+    │  ✓ No analytics on choices                                  │
+    │  ✓ No IP logging                                            │
+    │  ✓ 100% anonymous navigation                                │
+    └─────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════

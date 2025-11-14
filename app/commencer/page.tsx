@@ -1,624 +1,657 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
+'use client'
 
-export const metadata: Metadata = {
-  title: 'Comment Commencer - La Puce à L\'oreille',
-  description: 'Guide complet pour débuter votre démarche de lanceur d\'alerte en toute sécurité. Les 5 étapes essentielles pour structurer, documenter et partager votre témoignage.',
-  keywords: ['guide lanceur alerte', 'commencer whistleblowing', 'étapes lanceur alerte', 'protection témoignage', 'documentation preuves'],
+import Link from 'next/link'
+import { useState, ReactNode } from 'react'
+
+// Types for the wizard flow
+type SituationType = 'witnessed' | 'retaliation' | 'disclosure' | 'questions' | null
+
+interface StepContent {
+  title: string
+  description: string
+  icon: ReactNode
+}
+
+interface PathConfig {
+  title: string
+  description: string
+  color: string
+  bgGradient: string
+  steps: StepContent[]
+  rights: string[]
+  risks: string[]
+  resources: {
+    title: string
+    links: { label: string; href: string }[]
+  }
 }
 
 export default function CommencerPage() {
-  return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 text-white py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-6">
-            <svg className="w-12 h-12 text-teal-400" fill="currentColor" viewBox="0 0 20 20">
+  const [currentSituation, setCurrentSituation] = useState<SituationType>(null)
+  const [currentStep, setCurrentStep] = useState(0)
+
+  // Path configurations for each situation
+  const pathConfigs: Record<Exclude<SituationType, null>, PathConfig> = {
+    witnessed: {
+      title: "J'ai été témoin d'une faute",
+      description: "Vous avez observé des pratiques illégales ou contraires à l'éthique dans votre organisation.",
+      color: 'blue',
+      bgGradient: 'from-blue-600 to-blue-700',
+      steps: [
+        {
+          title: 'Évaluez la gravité',
+          description: "S'agit-il d'une violation de la loi, d'un risque pour la santé/sécurité, ou d'une atteinte à l'intérêt général? Documentez précisément ce que vous avez vu.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
             </svg>
-            <h1 className="text-4xl md:text-5xl font-bold">
-              Comment Commencer
-            </h1>
-          </div>
-          <p className="text-xl md:text-2xl text-slate-200 mb-8">
-            Un guide étape par étape pour structurer votre démarche en toute sécurité et confiance.
-          </p>
-          <div className="bg-teal-900 bg-opacity-50 border border-teal-500 rounded-lg p-4">
-            <div className="flex items-start gap-3">
-              <svg className="w-6 h-6 text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+          )
+        },
+        {
+          title: 'Collectez des preuves',
+          description: "Rassemblez tous les documents, emails, témoignages qui étayent vos observations. Stockez-les en sécurité hors de l'entreprise.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Consultez vos droits',
+          description: "Vérifiez si votre situation entre dans le cadre de la protection des lanceurs d'alerte. Consultez un avocat spécialisé si possible.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Choisissez votre canal',
+          description: "Commencez par le canal interne si sûr (RH, compliance). Si inefficace ou dangereux, passez au canal externe (autorités) puis public si nécessaire.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" />
+              <path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" />
+            </svg>
+          )
+        }
+      ],
+      rights: [
+        'Protection contre le licenciement et les représailles',
+        'Anonymat préservé si vous le souhaitez',
+        'Irresponsabilité pénale pour divulgation d\'informations protégées',
+        'Inversion de la charge de la preuve en cas de litige'
+      ],
+      risks: [
+        'Possibles tensions avec vos collègues ou hiérarchie',
+        'Processus potentiellement long et stressant',
+        'Risque de représailles malgré les protections (à documenter)',
+        'Impact sur votre carrière dans certains secteurs'
+      ],
+      resources: {
+        title: 'Guides recommandés',
+        links: [
+          { label: 'Guide de documentation des preuves', href: '/guides#checklists' },
+          { label: 'Vos droits en tant que témoin', href: '/securite' },
+          { label: 'Modèles de signalement', href: '/guides#templates' },
+          { label: 'Scénarios similaires', href: '/scenarios' }
+        ]
+      }
+    },
+    retaliation: {
+      title: "J'ai subi des représailles",
+      description: "Vous avez signalé une faute et vous subissez maintenant des conséquences négatives.",
+      color: 'red',
+      bgGradient: 'from-red-600 to-red-700',
+      steps: [
+        {
+          title: 'Documentez tout immédiatement',
+          description: "Conservez tous les emails, décisions, témoignages de collègues. Notez dates, heures, contextes de chaque incident de représailles.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Consultez un avocat d\'urgence',
+          description: "Les représailles sont illégales. Un avocat spécialisé en droit du travail peut vous aider à faire valoir vos droits immédiatement.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Saisissez les autorités',
+          description: "Contactez le Défenseur des droits, l'inspection du travail ou le conseil de prud'hommes selon votre situation.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Protégez-vous',
+          description: "Préservez votre santé mentale, informez vos proches, rejoignez des groupes de soutien. Vous n'êtes pas seul.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
+            </svg>
+          )
+        }
+      ],
+      rights: [
+        'Nullité de tout licenciement lié à votre alerte',
+        'Inversion de la charge de la preuve (l\'employeur doit prouver sa bonne foi)',
+        'Dommages et intérêts en cas de représailles avérées',
+        'Réintégration possible dans votre poste'
+      ],
+      risks: [
+        'Procédure judiciaire longue et éprouvante',
+        'Stress et impact psychologique important',
+        'Coûts juridiques (parfois pris en charge par assurances)',
+        'Difficulté à retrouver un emploi pendant la procédure'
+      ],
+      resources: {
+        title: 'Aide d\'urgence',
+        links: [
+          { label: 'Modèle de plainte pour représailles', href: '/guides#templates' },
+          { label: 'Contacts juridiques d\'urgence', href: '/contact' },
+          { label: 'Vos recours immédiats', href: '/securite#protection' },
+          { label: 'Témoignages de lanceurs d\'alerte', href: '/scenarios' }
+        ]
+      }
+    },
+    disclosure: {
+      title: "Je veux divulguer une information sensible",
+      description: "Vous êtes prêt à révéler une information d'intérêt public de manière sécurisée.",
+      color: 'purple',
+      bgGradient: 'from-purple-600 to-purple-700',
+      steps: [
+        {
+          title: 'Vérifiez la légitimité',
+          description: "Assurez-vous que l'information concerne un crime, délit, menace ou préjudice pour l'intérêt général. Consultez la liste des alertes protégées.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Préparez votre dossier',
+          description: "Structure narrative claire, preuves vérifiables, chronologie précise. Anonymisez ce qui peut l'être tout en gardant la crédibilité.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+              <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Sécurisez vos communications',
+          description: "Utilisez Signal, ProtonMail, Tor si nécessaire. Ne communiquez jamais via les outils de votre employeur. Chiffrez vos fichiers.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Choisissez votre stratégie',
+          description: "Canal interne d'abord si possible, puis autorités, et enfin médias/public uniquement si les autres échouent ou en cas d'urgence.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+            </svg>
+          )
+        }
+      ],
+      rights: [
+        'Protection totale si respect du parcours graduel (interne > externe > public)',
+        'Secret des sources si divulgation à la presse',
+        'Immunité pénale pour divulgation d\'informations couvertes par secret professionnel',
+        'Protection étendue aux facilitateurs (avocats, journalistes)'
+      ],
+      risks: [
+        'Exposition personnelle et professionnelle maximale',
+        'Poursuites possibles si non-respect du cadre légal',
+        'Impact durable sur votre réputation et carrière',
+        'Stress intense et besoin de soutien psychologique'
+      ],
+      resources: {
+        title: 'Outils de sécurité',
+        links: [
+          { label: 'Guide de sécurité numérique', href: '/securite#digital' },
+          { label: 'Checklist avant divulgation', href: '/guides#checklists' },
+          { label: 'Canaux de signalement sécurisés', href: '/securite#canaux' },
+          { label: 'Contacts médias et ONG', href: '/contact' }
+        ]
+      }
+    },
+    questions: {
+      title: "Je ne sais pas encore — j'ai des questions",
+      description: "Vous hésitez, vous avez des doutes, ou vous voulez simplement comprendre vos options.",
+      color: 'teal',
+      bgGradient: 'from-teal-600 to-teal-700',
+      steps: [
+        {
+          title: 'Évaluez votre situation',
+          description: "Est-ce bien une alerte d'intérêt général ? Ou un conflit du travail classique ? Utilisez nos scénarios types pour vous situer.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Informez-vous sur vos droits',
+          description: "Lisez le cadre légal, les protections disponibles, les conditions à remplir. Comprenez bien ce qui est protégé et ce qui ne l'est pas.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+            </svg>
+          )
+        },
+        {
+          title: 'Consultez les ressources',
+          description: "Parcourez nos guides, templates, études de cas. Voyez comment d'autres ont géré des situations similaires.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clipRule="evenodd" />
+            </svg>
+          )
+        },
+        {
+          title: 'Parlez-en (de façon confidentielle)',
+          description: "Contactez un avocat, une association, ou utilisez notre espace de questions anonymes. Vous n'êtes pas obligé de vous décider tout de suite.",
+          icon: (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clipRule="evenodd" />
+            </svg>
+          )
+        }
+      ],
+      rights: [
+        'Droit de consulter un avocat en toute confidentialité',
+        'Droit à l\'information sur vos protections légales',
+        'Pas d\'obligation de signaler si vous ne vous sentez pas prêt',
+        'Droit de poser des questions de façon anonyme'
+      ],
+      risks: [
+        'Inaction prolongée peut aggraver la situation',
+        'Difficulté de collecter des preuves après coup',
+        'Stress de l\'incertitude',
+        'Risque de manquer le moment opportun pour agir'
+      ],
+      resources: {
+        title: 'Par où commencer',
+        links: [
+          { label: 'Scénarios types et exemples', href: '/scenarios' },
+          { label: 'FAQ - Questions fréquentes', href: '/contact#faq' },
+          { label: 'Comprendre vos droits', href: '/securite' },
+          { label: 'Guides pratiques', href: '/guides' }
+        ]
+      }
+    }
+  }
+
+  const handleSituationSelect = (situation: Exclude<SituationType, null>) => {
+    setCurrentSituation(situation)
+    setCurrentStep(0)
+  }
+
+  const handleRestart = () => {
+    setCurrentSituation(null)
+    setCurrentStep(0)
+  }
+
+  const handleNextStep = () => {
+    if (currentSituation && currentStep < pathConfigs[currentSituation].steps.length - 1) {
+      setCurrentStep(currentStep + 1)
+    }
+  }
+
+  const handlePrevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
+
+  // Initial selection screen
+  if (!currentSituation) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 text-white py-16">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-3 mb-6">
+              <svg className="w-12 h-12 text-teal-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
               </svg>
-              <p className="text-teal-100">
-                <strong>100% Confidentiel</strong> — Vous pouvez suivre ce guide sans partager aucune information personnelle. Toutes les ressources sont accessibles anonymement.
-              </p>
+              <h1 className="text-4xl md:text-5xl font-bold">
+                Vos Premières 5 Minutes
+              </h1>
+            </div>
+            <p className="text-xl md:text-2xl text-slate-200 mb-8">
+              Un guide personnalisé basé sur votre situation spécifique.
+            </p>
+            <div className="bg-teal-900 bg-opacity-50 border border-teal-500 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <svg className="w-6 h-6 text-teal-300 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <p className="text-teal-100">
+                  <strong>100% Confidentiel</strong> — Rien n'est enregistré. Votre navigation reste totalement anonyme et privée.
+                </p>
+              </div>
             </div>
           </div>
+        </section>
+
+        {/* Situation Selection */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
+            <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              Quelle situation décrit le mieux votre cas ?
+            </h2>
+            <p className="text-lg text-slate-700 mb-6">
+              Sélectionnez l'option qui correspond à votre situation pour recevoir un accompagnement personnalisé.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Option 1: Witnessed */}
+            <button
+              onClick={() => handleSituationSelect('witnessed')}
+              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-6 text-left border-2 border-transparent hover:border-blue-500 group"
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-blue-200 transition">
+                  <svg className="w-7 h-7 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                    <path fillRule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition">
+                    J'ai été témoin d'une faute
+                  </h3>
+                  <p className="text-slate-600">
+                    Vous avez observé des pratiques illégales, dangereuses ou contraires à l'éthique dans votre organisation.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-blue-600 font-medium">
+                Commencer ce parcours
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </button>
+
+            {/* Option 2: Retaliation */}
+            <button
+              onClick={() => handleSituationSelect('retaliation')}
+              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-6 text-left border-2 border-transparent hover:border-red-500 group"
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center group-hover:bg-red-200 transition">
+                  <svg className="w-7 h-7 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-red-600 transition">
+                    J'ai subi des représailles
+                  </h3>
+                  <p className="text-slate-600">
+                    Vous avez signalé une faute et vous subissez maintenant des conséquences négatives (harcèlement, rétrogradation, licenciement...).
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-red-600 font-medium">
+                Obtenir de l'aide immédiate
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </button>
+
+            {/* Option 3: Disclosure */}
+            <button
+              onClick={() => handleSituationSelect('disclosure')}
+              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-6 text-left border-2 border-transparent hover:border-purple-500 group"
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center group-hover:bg-purple-200 transition">
+                  <svg className="w-7 h-7 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-purple-600 transition">
+                    Je veux divulguer une information sensible
+                  </h3>
+                  <p className="text-slate-600">
+                    Vous êtes prêt à révéler une information d'intérêt public et vous cherchez à le faire de manière sécurisée et légale.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-purple-600 font-medium">
+                Guide de divulgation sécurisée
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </button>
+
+            {/* Option 4: Questions */}
+            <button
+              onClick={() => handleSituationSelect('questions')}
+              className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all p-6 text-left border-2 border-transparent hover:border-teal-500 group"
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex-shrink-0 w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center group-hover:bg-teal-200 transition">
+                  <svg className="w-7 h-7 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 group-hover:text-teal-600 transition">
+                    Je ne sais pas encore — j'ai des questions
+                  </h3>
+                  <p className="text-slate-600">
+                    Vous hésitez, vous avez des doutes, ou vous voulez simplement comprendre vos options avant de prendre une décision.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-teal-600 font-medium">
+                Explorer mes options
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  // Guided path view
+  const config = pathConfigs[currentSituation]
+  const progress = ((currentStep + 1) / config.steps.length) * 100
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      {/* Header with progress */}
+      <section className={`bg-gradient-to-br ${config.bgGradient} text-white py-8`}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <button
+            onClick={handleRestart}
+            className="flex items-center gap-2 text-white hover:text-slate-200 transition mb-6"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Revenir au choix
+          </button>
+
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">{config.title}</h1>
+          <p className="text-lg text-slate-200 mb-6">{config.description}</p>
+
+          {/* Progress bar */}
+          <div className="bg-white bg-opacity-20 rounded-full h-2 mb-2">
+            <div
+              className="bg-white rounded-full h-2 transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <p className="text-sm text-slate-200">
+            Étape {currentStep + 1} sur {config.steps.length}
+          </p>
         </div>
       </section>
 
-      {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
-        {/* Introduction */}
+        {/* Current step content */}
         <div className="bg-white rounded-xl shadow-sm p-8 mb-8">
-          <h2 className="text-2xl font-bold text-slate-900 mb-4">
-            Vous êtes au bon endroit
-          </h2>
-          <div className="prose prose-slate max-w-none">
-            <p className="text-lg text-slate-700">
-              Révéler une information sensible dans le secteur privé peut être intimidant. Vous avez peut-être des doutes, des questions, ou simplement besoin de clarté sur vos droits et vos options.
-            </p>
-            <p className="text-lg text-slate-700">
-              Ce guide vous accompagne à travers <strong>5 étapes essentielles</strong> pour structurer votre démarche de manière sûre, documentée et efficace — que vous choisissiez de signaler en interne, à une autorité, ou publiquement.
-            </p>
+          <div className="flex items-start gap-4 mb-6">
+            <div className={`flex-shrink-0 w-16 h-16 bg-${config.color}-100 rounded-lg flex items-center justify-center text-${config.color}-600`}>
+              {config.steps[currentStep].icon}
+            </div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold text-slate-900 mb-2">
+                {config.steps[currentStep].title}
+              </h2>
+              <p className="text-lg text-slate-700">
+                {config.steps[currentStep].description}
+              </p>
+            </div>
+          </div>
+
+          {/* Navigation buttons */}
+          <div className="flex items-center justify-between pt-6 border-t border-slate-200">
+            <button
+              onClick={handlePrevStep}
+              disabled={currentStep === 0}
+              className={`flex items-center gap-2 px-6 py-3 rounded-lg font-medium transition ${
+                currentStep === 0
+                  ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                  : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Précédent
+            </button>
+
+            {currentStep < config.steps.length - 1 ? (
+              <button
+                onClick={handleNextStep}
+                className={`flex items-center gap-2 bg-${config.color}-600 text-white px-6 py-3 rounded-lg hover:bg-${config.color}-700 transition font-medium`}
+              >
+                Suivant
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            ) : (
+              <span className="text-sm text-slate-600 font-medium">Parcours terminé</span>
+            )}
           </div>
         </div>
 
-        {/* The 5 Steps */}
-        <div className="space-y-6">
-
-          {/* Step 1 */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-gradient-to-r from-teal-600 to-teal-700 px-6 py-4">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center w-12 h-12 bg-white rounded-full">
-                  <span className="text-2xl font-bold text-teal-700">1</span>
-                </div>
-                <h3 className="text-2xl font-bold text-white">
-                  Comprendre vos droits
-                </h3>
-              </div>
-            </div>
-            <div className="p-6">
-              <p className="text-slate-700 mb-4">
-                Avant toute chose, il est crucial de comprendre le cadre légal qui protège les lanceurs d'alerte en France et dans votre contexte professionnel.
-              </p>
-
-              <h4 className="font-semibold text-slate-900 mb-2">Points clés :</h4>
-              <ul className="space-y-2 mb-6">
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-slate-700">La loi Sapin II (2016) et la directive européenne (2019) protègent les lanceurs d'alerte</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-slate-700">Protection contre le licenciement, les représailles et la discrimination</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-slate-700">Canaux de signalement : interne, externe (autorités), ou public selon la situation</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-slate-700">Conditions : bonne foi, information sur un risque ou préjudice pour l'intérêt général</span>
-                </li>
-              </ul>
-
-              <div className="bg-teal-50 border border-teal-200 rounded-lg p-4 mb-4">
-                <h5 className="font-semibold text-teal-900 mb-2 flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
-                    <path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" />
-                  </svg>
-                  Ressources recommandées
-                </h5>
-                <ul className="space-y-1 text-sm text-teal-800">
-                  <li>• Guide juridique complet sur vos droits</li>
-                  <li>• Livre blanc : Les Lanceurs d'Alerte dans le Secteur Privé</li>
-                  <li>• Analyse comparative des protections légales</li>
-                </ul>
-              </div>
-
-              <Link
-                href="/securite"
-                className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition font-medium"
-              >
-                Explorer vos droits en détail
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+        {/* Rights section */}
+        <div className="bg-white rounded-xl shadow-sm p-8 mb-6">
+          <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <svg className="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+            </svg>
+            Vos droits et protections
+          </h3>
+          <ul className="space-y-3">
+            {config.rights.map((right, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
-              </Link>
-            </div>
-          </div>
-
-          {/* Step 2 */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-gradient-to-r from-teal-600 to-teal-700 px-6 py-4">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center w-12 h-12 bg-white rounded-full">
-                  <span className="text-2xl font-bold text-teal-700">2</span>
-                </div>
-                <h3 className="text-2xl font-bold text-white">
-                  Structurer votre histoire
-                </h3>
-              </div>
-            </div>
-            <div className="p-6">
-              <p className="text-slate-700 mb-4">
-                Une bonne structure narrative rend votre témoignage plus clair, crédible et percutant. Il ne s'agit pas seulement de raconter ce qui s'est passé, mais de le présenter de manière cohérente.
-              </p>
-
-              <h4 className="font-semibold text-slate-900 mb-2">Éléments clés d'une bonne structure :</h4>
-              <div className="space-y-3 mb-6">
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
-                    <span className="text-teal-700 font-semibold">1</span>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold text-slate-900">Le Contexte</h5>
-                    <p className="text-sm text-slate-600">Qui êtes-vous (rôle, pas identité), où travaillez-vous, quel est votre domaine</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
-                    <span className="text-teal-700 font-semibold">2</span>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold text-slate-900">Les Faits</h5>
-                    <p className="text-sm text-slate-600">Quoi, quand, où, qui — chronologie précise et factuelle</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
-                    <span className="text-teal-700 font-semibold">3</span>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold text-slate-900">L'Impact</h5>
-                    <p className="text-sm text-slate-600">Pourquoi c'est grave — conséquences pour les personnes, l'organisation, la société</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-teal-100 rounded-full flex items-center justify-center">
-                    <span className="text-teal-700 font-semibold">4</span>
-                  </div>
-                  <div>
-                    <h5 className="font-semibold text-slate-900">Vos Observations</h5>
-                    <p className="text-sm text-slate-600">Ce que vous avez personnellement vu, entendu ou vécu</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4">
-                <h5 className="font-semibold text-slate-900 mb-2">Conseils pratiques :</h5>
-                <ul className="space-y-1 text-sm text-slate-700">
-                  <li>✓ Restez factuel — évitez les émotions excessives ou les jugements</li>
-                  <li>✓ Soyez précis — dates, lieux, montants, noms (si pertinent)</li>
-                  <li>✓ Distinguez ce que vous savez de première main vs ce qu'on vous a rapporté</li>
-                  <li>✓ Organisez chronologiquement pour plus de clarté</li>
-                </ul>
-              </div>
-
-              <Link
-                href="/guides#templates"
-                className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition font-medium"
-              >
-                Accéder aux templates narratifs
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-
-          {/* Step 3 */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-gradient-to-r from-teal-600 to-teal-700 px-6 py-4">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center w-12 h-12 bg-white rounded-full">
-                  <span className="text-2xl font-bold text-teal-700">3</span>
-                </div>
-                <h3 className="text-2xl font-bold text-white">
-                  Organiser vos preuves
-                </h3>
-              </div>
-            </div>
-            <div className="p-6">
-              <p className="text-slate-700 mb-4">
-                Les preuves donnent du poids à votre témoignage. Plus elles sont organisées et documentées, plus votre démarche sera crédible et efficace.
-              </p>
-
-              <h4 className="font-semibold text-slate-900 mb-3">Types de preuves à collecter :</h4>
-              <div className="grid md:grid-cols-2 gap-4 mb-6">
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <h5 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clipRule="evenodd" />
-                    </svg>
-                    Documents écrits
-                  </h5>
-                  <ul className="text-sm text-slate-600 space-y-1">
-                    <li>• Emails et correspondances</li>
-                    <li>• Notes de réunion</li>
-                    <li>• Rapports internes</li>
-                    <li>• Contrats ou accords</li>
-                  </ul>
-                </div>
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <h5 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M3 12v3c0 1.657 3.134 3 7 3s7-1.343 7-3v-3c0 1.657-3.134 3-7 3s-7-1.343-7-3z" />
-                      <path d="M3 7v3c0 1.657 3.134 3 7 3s7-1.343 7-3V7c0 1.657-3.134 3-7 3S3 8.657 3 7z" />
-                      <path d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z" />
-                    </svg>
-                    Données numériques
-                  </h5>
-                  <ul className="text-sm text-slate-600 space-y-1">
-                    <li>• Fichiers Excel ou CSV</li>
-                    <li>• Captures d'écran</li>
-                    <li>• Logs système</li>
-                    <li>• Enregistrements audio/vidéo</li>
-                  </ul>
-                </div>
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <h5 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clipRule="evenodd" />
-                    </svg>
-                    Témoignages
-                  </h5>
-                  <ul className="text-sm text-slate-600 space-y-1">
-                    <li>• Témoins directs</li>
-                    <li>• Déclarations écrites</li>
-                    <li>• Conversations pertinentes</li>
-                    <li>• Références croisées</li>
-                  </ul>
-                </div>
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <h5 className="font-semibold text-slate-900 mb-2 flex items-center gap-2">
-                    <svg className="w-5 h-5 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                    </svg>
-                    Chronologie
-                  </h5>
-                  <ul className="text-sm text-slate-600 space-y-1">
-                    <li>• Timeline détaillée</li>
-                    <li>• Dates clés horodatées</li>
-                    <li>• Journal personnel</li>
-                    <li>• Évolution des événements</li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
-                <h5 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                  </svg>
-                  Important : Sécurité des données
-                </h5>
-                <ul className="space-y-1 text-sm text-amber-900">
-                  <li>✓ Ne collectez que ce qui est légalement accessible</li>
-                  <li>✓ Stockez vos preuves de manière sécurisée (encryption)</li>
-                  <li>✓ Faites des copies de sauvegarde (sur plusieurs supports)</li>
-                  <li>✓ Consultez un avocat avant de partager des données sensibles</li>
-                </ul>
-              </div>
-
-              <Link
-                href="/guides#checklists"
-                className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition font-medium"
-              >
-                Checklist de documentation
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-
-          {/* Step 4 */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-gradient-to-r from-teal-600 to-teal-700 px-6 py-4">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center w-12 h-12 bg-white rounded-full">
-                  <span className="text-2xl font-bold text-teal-700">4</span>
-                </div>
-                <h3 className="text-2xl font-bold text-white">
-                  Publier en sécurité
-                </h3>
-              </div>
-            </div>
-            <div className="p-6">
-              <p className="text-slate-700 mb-4">
-                Une fois votre dossier structuré, vous devez décider <strong>comment</strong> et <strong>à qui</strong> partager votre information. Cette décision est cruciale pour votre sécurité et l'efficacité de votre action.
-              </p>
-
-              <h4 className="font-semibold text-slate-900 mb-3">Les trois canaux de signalement :</h4>
-              <div className="space-y-4 mb-6">
-                <div className="border border-slate-200 rounded-lg p-4">
-                  <div className="flex items-start gap-3 mb-2">
-                    <div className="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm3 1h6v4H7V5zm6 6H7v2h6v-2z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-slate-900">1. Signalement Interne</h5>
-                      <p className="text-sm text-slate-600 mt-1">À votre employeur via un canal dédié (RH, compliance, ou dispositif d'alerte interne)</p>
-                      <div className="mt-2 text-sm">
-                        <p className="text-green-700 font-medium">✓ Avantages :</p>
-                        <ul className="text-slate-600 ml-4 mt-1 space-y-0.5">
-                          <li>• Protection légale immédiate</li>
-                          <li>• Possibilité de résolution rapide</li>
-                          <li>• Moins de risques d'exposition publique</li>
-                        </ul>
-                        <p className="text-amber-700 font-medium mt-2">⚠ Limites :</p>
-                        <ul className="text-slate-600 ml-4 mt-1 space-y-0.5">
-                          <li>• L'entreprise peut minimiser ou ignorer</li>
-                          <li>• Risque de représailles malgré la protection</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="border border-slate-200 rounded-lg p-4">
-                  <div className="flex items-start gap-3 mb-2">
-                    <div className="flex-shrink-0 w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-slate-900">2. Signalement Externe (Autorités)</h5>
-                      <p className="text-sm text-slate-600 mt-1">À une autorité compétente : Défenseur des droits, autorité de régulation, justice</p>
-                      <div className="mt-2 text-sm">
-                        <p className="text-green-700 font-medium">✓ Avantages :</p>
-                        <ul className="text-slate-600 ml-4 mt-1 space-y-0.5">
-                          <li>• Investigation officielle</li>
-                          <li>• Protection renforcée</li>
-                          <li>• Possible si le canal interne a échoué</li>
-                        </ul>
-                        <p className="text-amber-700 font-medium mt-2">⚠ Limites :</p>
-                        <ul className="text-slate-600 ml-4 mt-1 space-y-0.5">
-                          <li>• Procédure plus lente</li>
-                          <li>• Moins de contrôle sur le processus</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="border border-slate-200 rounded-lg p-4">
-                  <div className="flex items-start gap-3 mb-2">
-                    <div className="flex-shrink-0 w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-6 h-6 text-teal-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div className="flex-1">
-                      <h5 className="font-semibold text-slate-900">3. Divulgation Publique</h5>
-                      <p className="text-sm text-slate-600 mt-1">Aux médias, ONG, ou publication directe (dernier recours)</p>
-                      <div className="mt-2 text-sm">
-                        <p className="text-green-700 font-medium">✓ Avantages :</p>
-                        <ul className="text-slate-600 ml-4 mt-1 space-y-0.5">
-                          <li>• Maximum de visibilité et pression</li>
-                          <li>• Possible en cas de danger imminent ou d'échec des autres canaux</li>
-                        </ul>
-                        <p className="text-red-700 font-medium mt-2">⚠ Risques importants :</p>
-                        <ul className="text-slate-600 ml-4 mt-1 space-y-0.5">
-                          <li>• Protection légale conditionnée au respect strict du cadre</li>
-                          <li>• Exposition personnelle maximale</li>
-                          <li>• Possible poursuites si conditions non remplies</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-teal-50 border border-teal-200 rounded-lg p-4 mb-4">
-                <h5 className="font-semibold text-teal-900 mb-2">Recommandation générale :</h5>
-                <p className="text-sm text-teal-800">
-                  La loi prévoit un parcours graduel : commencez par le canal interne (si sûr), puis externe si nécessaire, et enfin public uniquement dans des cas exceptionnels (danger imminent, intérêt général majeur, échec des autres voies). <strong>Consultez un avocat spécialisé</strong> avant toute divulgation publique.
-                </p>
-              </div>
-
-              <Link
-                href="/securite#canaux"
-                className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition font-medium"
-              >
-                Guide détaillé des canaux
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-
-          {/* Step 5 */}
-          <div className="bg-white rounded-xl shadow-sm overflow-hidden">
-            <div className="bg-gradient-to-r from-teal-600 to-teal-700 px-6 py-4">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center justify-center w-12 h-12 bg-white rounded-full">
-                  <span className="text-2xl font-bold text-teal-700">5</span>
-                </div>
-                <h3 className="text-2xl font-bold text-white">
-                  Vous protéger personnellement
-                </h3>
-              </div>
-            </div>
-            <div className="p-6">
-              <p className="text-slate-700 mb-4">
-                Révéler une information sensible peut avoir des conséquences sur votre vie professionnelle et personnelle. Voici comment minimiser les risques et vous protéger.
-              </p>
-
-              <h4 className="font-semibold text-slate-900 mb-3">Protection juridique :</h4>
-              <div className="bg-slate-50 rounded-lg p-4 mb-4">
-                <ul className="space-y-2 text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span><strong>Consultez un avocat spécialisé</strong> en droit du travail / lanceurs d'alerte dès que possible</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span>Documentez toute forme de représailles (emails, témoins, changements de poste)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span>Conservez des preuves de vos communications avec l'employeur ou les autorités</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    <span>Connaissez vos recours en cas de licenciement abusif ou discrimination</span>
-                  </li>
-                </ul>
-              </div>
-
-              <h4 className="font-semibold text-slate-900 mb-3">Protection numérique :</h4>
-              <div className="bg-slate-50 rounded-lg p-4 mb-4">
-                <ul className="space-y-2 text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Utilisez des outils de communication chiffrée (Signal, ProtonMail)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Stockez vos preuves de manière sécurisée (disques durs chiffrés, cloud sécurisé)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Évitez d'utiliser les outils de l'entreprise pour vos communications sensibles</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Faites des copies de sauvegarde régulières et stockez-les séparément</span>
-                  </li>
-                </ul>
-              </div>
-
-              <h4 className="font-semibold text-slate-900 mb-3">Soutien psychologique et social :</h4>
-              <div className="bg-slate-50 rounded-lg p-4 mb-4">
-                <ul className="space-y-2 text-slate-700">
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                    </svg>
-                    <span>Parlez-en à des personnes de confiance (famille, amis proches)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                    </svg>
-                    <span>Rejoignez des groupes de soutien pour lanceurs d'alerte</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                    </svg>
-                    <span>Consultez un psychologue si nécessaire — le stress peut être important</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <svg className="w-5 h-5 text-teal-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" />
-                    </svg>
-                    <span>Préparez-vous mentalement à un processus potentiellement long</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-                <h5 className="font-semibold text-red-900 mb-2 flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                  </svg>
-                  En cas de danger immédiat
-                </h5>
-                <p className="text-sm text-red-900">
-                  Si vous êtes victime de menaces, harcèlement ou violences, contactez immédiatement les autorités (police, Défenseur des droits). Votre sécurité personnelle passe avant tout.
-                </p>
-              </div>
-
-              <Link
-                href="/securite#protection"
-                className="inline-flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition font-medium"
-              >
-                Guide complet de protection
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
-            </div>
-          </div>
-
+                <span className="text-slate-700">{right}</span>
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Next Steps CTA */}
-        <div className="mt-12 bg-gradient-to-br from-teal-600 to-teal-700 rounded-xl shadow-lg p-8 text-white">
-          <h2 className="text-3xl font-bold mb-4">Prêt à passer à l'action ?</h2>
-          <p className="text-xl mb-6 text-teal-50">
-            Vous avez maintenant une vue d'ensemble des 5 étapes essentielles. Explorez nos ressources pour aller plus loin.
+        {/* Risks section */}
+        <div className="bg-white rounded-xl shadow-sm p-8 mb-6">
+          <h3 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
+            <svg className="w-6 h-6 text-amber-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+            </svg>
+            Risques à connaître
+          </h3>
+          <ul className="space-y-3">
+            {config.risks.map((risk, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <svg className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                </svg>
+                <span className="text-slate-700">{risk}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Resources section */}
+        <div className={`bg-gradient-to-br ${config.bgGradient} rounded-xl shadow-lg p-8 text-white mb-6`}>
+          <h3 className="text-2xl font-bold mb-4">{config.resources.title}</h3>
+          <div className="grid md:grid-cols-2 gap-4">
+            {config.resources.links.map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
+                className="bg-white bg-opacity-20 hover:bg-opacity-30 transition px-4 py-3 rounded-lg flex items-center justify-between group"
+              >
+                <span className="font-medium">{link.label}</span>
+                <svg className="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA section */}
+        <div className="bg-white rounded-xl shadow-sm p-8 text-center">
+          <h3 className="text-2xl font-bold text-slate-900 mb-4">
+            Besoin d'aide supplémentaire ?
+          </h3>
+          <p className="text-lg text-slate-700 mb-6">
+            Notre plateforme offre des ressources complètes pour vous accompagner à chaque étape.
           </p>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
             <Link
               href="/guides"
-              className="bg-white text-teal-700 px-6 py-4 rounded-lg hover:bg-teal-50 transition font-semibold text-center"
+              className="bg-teal-600 text-white px-6 py-3 rounded-lg hover:bg-teal-700 transition font-medium"
             >
-              Templates & Guides
-            </Link>
-            <Link
-              href="/securite"
-              className="bg-white text-teal-700 px-6 py-4 rounded-lg hover:bg-teal-50 transition font-semibold text-center"
-            >
-              Droits & Sécurité
+              Voir tous les guides
             </Link>
             <Link
               href="/contact"
-              className="bg-teal-800 text-white px-6 py-4 rounded-lg hover:bg-teal-900 transition font-semibold text-center border-2 border-white"
+              className="bg-slate-200 text-slate-700 px-6 py-3 rounded-lg hover:bg-slate-300 transition font-medium"
             >
               Poser une question
             </Link>
+            <button
+              onClick={handleRestart}
+              className="bg-white border-2 border-slate-300 text-slate-700 px-6 py-3 rounded-lg hover:border-slate-400 transition font-medium"
+            >
+              Recommencer
+            </button>
           </div>
         </div>
-
-        {/* Additional Resources */}
-        <div className="mt-8 bg-slate-100 rounded-xl p-6">
-          <h3 className="text-xl font-bold text-slate-900 mb-4">Ressources complémentaires</h3>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="bg-white rounded-lg p-4">
-              <h4 className="font-semibold text-slate-900 mb-2">Livres blancs</h4>
-              <ul className="text-sm text-slate-700 space-y-1">
-                <li>• Les Lanceurs d'Alerte dans le Secteur Privé</li>
-                <li>• Les Points de Douleur des Lanceurs d'Alerte</li>
-                <li>• Breaking Barriers: Empowering Whistleblowers</li>
-              </ul>
-            </div>
-            <div className="bg-white rounded-lg p-4">
-              <h4 className="font-semibold text-slate-900 mb-2">Analyses & Réflexions</h4>
-              <ul className="text-sm text-slate-700 space-y-1">
-                <li>• Méthodologies de documentation</li>
-                <li>• Études de cas anonymisées</li>
-                <li>• Cadre légal international</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
   )
